@@ -3,7 +3,9 @@ import SongsModal from './components/SongsModal.jsx'
 import SongForm from './components/NewSong.jsx'
 import NewSongButton from './components/NewSongButton.jsx'
 import SongDetails from './components/SongDetails.jsx'
+import Swal from 'sweetalert2'
 import SongsList from './components/SongsList.jsx'
+import { Toaster, toast } from 'sonner';
 import './App.css'
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
 
   const addSong = function(newSong){
     setSongs([...songs,newSong]);
+    toast("Song created successfully.");
   };
 
   const updateSong = function(newSong){
@@ -35,6 +38,7 @@ function App() {
       return v;
     });
     setSongs(newList);
+    toast("Song updated successfully.");
   }
 
   const viewSong = function(id){
@@ -57,25 +61,39 @@ function App() {
     setCurrentModal("NewSong");
   };
 
-  const deleteSong = function(id){   
-    if(!confirm("Do you really wish to delete this song?"))
+  const deleteSong =  async function(id){   
+    var res = await Swal.fire({
+      title: "Do you want to delete the song?",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Delete",
+      denyButtonText: `Cancel`
+    });
+    if(!res.isConfirmed)
       return;
     const newList = songs.filter((v)=>{
       return (v.id!=id)
     });
     setSongs(newList);
+    toast("Song deleted successfully.");
   };
 
   return (
     <>
     <SongsList songs={songs} viewSong={viewSong} editSong={editSong} deleteSong={deleteSong}/>
     <NewSongButton text="+" onClick={ () =>{ setCurrentModal("NewSong");} }/>
-    <SongsModal visible={currentModal=="NewSong"} closeHandler={ () => setCurrentModal(null) }>
+    <SongsModal 
+    visible={currentModal=="NewSong"} 
+    closeHandler={ () => {
+      setCurrentSongInForm({id:null,name:'',author:'',lyrics:'',video:''}); 
+      setCurrentModal(null)
+      } }>
      <SongForm addSongFunction={addSong} updateSongFunction={updateSong} songToEdit={currentSongInForm}/>
     </SongsModal>
     <SongsModal visible={currentModal=="SongDetails"} closeHandler={ () => setCurrentModal(null) }>
       <SongDetails song={currentSong}/>
     </SongsModal >
+    <Toaster/>
     </>
   )
 }

@@ -30,7 +30,7 @@ const SongForm = function(props){
          }else{
             props.updateSongFunction({...songProps});
          }
-        setSongProps({name:'',lyrics:'',video:''}); 
+        setSongProps({name:'',lyrics:'',video:'',id:null}); 
     };
 
     return (<form onSubmit={handleSubmission} className="NewSongForm">
