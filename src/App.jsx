@@ -27,6 +27,8 @@ function App() {
 
   const addSong = function(newSong){
     setSongs([...songs,newSong]);
+    setCurrentSongInForm({id:null,name:'',author:'',lyrics:'',video:''}); 
+    setCurrentModal(null);
     toast("Song created successfully.");
   };
 
@@ -38,6 +40,8 @@ function App() {
       return v;
     });
     setSongs(newList);
+    setCurrentSongInForm({id:null,name:'',author:'',lyrics:'',video:''}); 
+    setCurrentModal(null);
     toast("Song updated successfully.");
   }
 

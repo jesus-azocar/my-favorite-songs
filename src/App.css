@@ -24,9 +24,10 @@
   width:auto;
   max-width: 90%;
   overflow-y:auto;
+  overflow-x: hidden;
   position:relative;
   max-height: 90vh;
-  padding:1em 2em;
+  padding:3em 2em 2em 2em;
   border-radius:3px;
   z-index: 12;
 }
@@ -89,21 +90,67 @@ form button[type=submit]{
   margin:.25em auto;
 }
 
+
+.SongData{
+  display: flex;
+}
+
+.songHeader{
+  display:flex;
+  margin-bottom: 1.5em;
+  align-items: flex-start;
+}
+
+.songHeader .headerLeft img{
+  height:45px;
+  margin-right: 10px;
+}
+
+.songHeader .headerRight{
+  display:flex;
+  flex-direction: column;
+}
+
+.SongData .NameAndAuthor{
+  margin-left:8px;
+}
+
+.headerRight h3{
+  margin:0;
+  line-height: 1em;
+}
+
 .songDetails{
   min-width: 500px;
   display: flex;
   align-items: flex-start;
+  flex-direction: column-reverse;
   justify-content: space-between;
 }
 
 .songDetails .left,.songDetails .right{
-  width:50%;
+  width:100%;
   padding: 0.5em;
   box-sizing: border-box;
 }
 
+@media screen and (min-width:768px) {
+  
+.songDetails{
+  flex-direction: row;
+}
+  .songDetails .left,.songDetails .right{
+  width:50%; 
+}
+}
+
+
 .lyricsContainer {
   white-space: pre-line; 
+}
+
+.songDetails .right iframe{
+  max-width: 100%;
 }
 
 .SongsList{
@@ -123,14 +170,6 @@ form button[type=submit]{
   width: 100%;
   box-sizing: border-box;
   justify-content: space-between;
-}
-
-.SongData{
-  display: flex;
-}
-
-.SongData .NameAndAuthor{
-  margin-left:8px;
 }
 
 .SongItem .SongName{
